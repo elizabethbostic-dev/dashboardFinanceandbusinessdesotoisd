@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Who Does What – Finance PD | DeSoto ISD</title>
+  <style>
+    :root {
+      --green: #0B6E4F;
+      --gold: #F7B500;
+      --ink: #0f172a;
+      --bg: #f7faf7;
+      --card: #ffffff;
+    }
+    body {
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
+    }
+    header {
+      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
+      color: white;
+      padding: 28px 24px;
+      border-bottom: 6px solid var(--gold);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.2rem);
+    }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 24px;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .node {
+      border: 2px solid #d1e7dd;
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .node:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      display: none;
+      place-items: center;
+    }
+    .modal[open] { display: grid; }
+    .sheet {
+      background: white;
+      border-radius: 16px;
+      max-width: 700px;
+      max-height: 85vh;
+      overflow: auto;
+      padding: 20px;
+      position: relative;
+    }
+    .sheet header {
+      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
+      color: white;
+      padding: 16px;
+      border-radius: 10px 10px 0 0;
+    }
+    button.close {
+      position: absolute;
+      right: 16px;
+      top: 10px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    details {
+      border: 1px dashed #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px 0;
+      background: #fafafa;
+    }
+    .do { border-left: 4px solid var(--green); padding-left: 10px; }
+    .dont { border-left: 4px solid #c2410c; padding-left: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quick “Who Does What” in Finance PD</h1>
+    <p>Click a category to learn who to contact, what to do, and what to avoid.</p>
+  </header>
+  <main>
+    <section class="flow">
+      <div class="node" data-lane="Budget">Budget</div>
+      <div class="node" data-lane="Payroll">Payroll</div>
+      <div class="node" data-lane="Purchasing / AP">Purchasing / AP</div>
+      <div class="node" data-lane="Procurement">Procurement</div>
+      <div class="node" data-lane="Grants / Special Revenue">Grants</div>
+      <div class="node" data-lane="Cash Handling / Audit">Cash / Audit</div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="modal">
+    <div class="sheet">
+      <header>
+        <button class="close" onclick="modal.close()">×</button>
+        <h2 id="laneTitle"></h2>
+      </header>
+      <main id="laneBody"></main>
+    </div>
+  </dialog>
+
+  <script>
+    const scenarios = {
+      "Budget": [
+        {
+          title: "Negative balance before month-end",
+          when: "Budget line shows a negative or near-zero balance.",
+          do: "Submit a budget amendment with account string and justification.",
+          dont: "Don’t move expenses without approval."
+        },
+        {
+          title: "Wrong code on expense",
+          when: "Transaction posted to the wrong segment.",
+          do: "Submit reclass request with full details and documentation.",
+          dont: "Don’t ‘park’ charges on a random line."
+        }
+      ],
+      "Payroll": [
+        {
+          title: "Stipend missing from paycheck",
+          when: "Approved stipend didn’t appear on payroll.",
+          do: "Open a ticket with Payroll, include employee ID, pay period, and approver.",
+          dont: "Don’t request a manual check through AP."
+        }
+      ],
+      "Purchasing / AP": [
+        {
+          title: "Vendor reports unpaid invoice",
+          when: "Vendor contacts you about a past-due invoice.",
+          do: "Check PO match and receiving, then email AP with the PO, invoice, and receipt.",
+          dont: "Don’t send invoice alone — delays payment."
+        }
+      ],
+      "Procurement": [
+        {
+          title: "Purchase over $10,000",
+          when: "Planned purchase exceeds local threshold.",
+          do: "Contact Procurement for quotes/bid requirements and timeline.",
+          dont: "Don’t split purchases to avoid thresholds."
+        }
+      ],
+      "Grants / Special Revenue": [
+        {
+          title: "Unclear if cost is allowable",
+          when: "You’re unsure if an expense can be charged to a grant.",
+          do: "Email Grants team with justification and program alignment; verify in eGrants.",
+          dont: "Don’t code first and ask later."
+        }
+      ],
+      "Cash Handling / Audit": [
+        {
+          title: "Fundraiser cash deposit",
+          when: "Cash/checks collected from event.",
+          do: "Count with two people, complete receipt log, and deposit within required timeframe.",
+          dont: "Don’t store cash in classrooms or take it home."
+        }
+      ]
+    };
+
+    const modal = document.getElementById("modal");
+    const laneTitle = document.getElementById("laneTitle");
+    const laneBody = document.getElementById("laneBody");
+
+    document.querySelectorAll(".node").forEach(node => {
+      node.addEventListener("click", () => {
+        const lane = node.dataset.lane;
+        laneTitle.textContent = lane;
+        const items = scenarios[lane] || [];
+        laneBody.innerHTML = items.map(s => `
+          <details>
+            <summary>${s.title}</summary>
+            <p><strong>When:</strong> ${s.when}</p>
+            <p class="do"><strong>Do:</strong> ${s.do}</p>
+            <p class="dont"><strong>Don’t:</strong> ${s.dont}</p>
+          </details>
+        `).join("");
+        modal.showModal();
+      });
+    });
+  </script>
+</body>
+</html>
