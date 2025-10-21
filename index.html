@@ -2,272 +2,198 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DeSoto ISD • Finance PD Dashboard</title>
-  <meta name="description" content="Quick launchpad for Finance PD tools: terminology, Jeopardy, SORRY payroll game, and Canva handout." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DeSoto ISD • Finance Training Launchpad</title>
+  <meta name="description" content="Quick launch dashboard to Finance Terminology, Payroll Jeopardy, and SORRY: Payroll Pathway." />
+
   <style>
     :root{
-      --bg:#0b1220;
-      --card:#121a2b;
-      --ink:#eaf2ff;
-      --muted:#b7c4e1;
-      --accent:#5eead4;
-      --accent2:#60a5fa;
-      --warn:#fbbf24;
-      --danger:#fb7185;
-      --ok:#34d399;
-      --link:#93c5fd;
-      --ring: 0 0 0 3px rgba(96,165,250,.45);
-    }
-    [data-theme="light"]{
-      --bg:#f6f8fd;
+      --eagle-green:#007A33;   /* Primary */
+      --eagle-gold:#FDB927;    /* Accent */
+      --dk:#0b1b12;
+      --bg:#f7f9f8;
       --card:#ffffff;
-      --ink:#0b1220;
-      --muted:#4b5563;
-      --accent:#0ea5e9;
-      --accent2:#6366f1;
-      --warn:#b45309;
-      --danger:#b91c1c;
-      --ok:#059669;
-      --link:#1d4ed8;
+      --muted:#5b6b62;
+      --ring:rgba(0,122,51,.25);
     }
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:var(--bg); color:var(--ink); line-height:1.45;
+      margin:0;
+      font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--dk);
     }
-    .wrap{max-width:1100px; margin:0 auto; padding:24px;}
+    .wrap{
+      max-width:1050px;
+      margin-inline:auto;
+      padding:28px 20px 40px;
+    }
     header{
-      display:flex; gap:16px; align-items:center; justify-content:space-between; margin-bottom:16px;
+      background:linear-gradient(135deg, var(--eagle-green) 0%, #025e28 60%);
+      color:#fff;
+      border-radius:18px;
+      padding:28px 22px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
-    .brand{display:flex; gap:12px; align-items:center}
-    .badge{display:inline-flex; gap:10px; align-items:center; background:linear-gradient(135deg,var(--accent2),var(--accent));
-      padding:10px 12px; border-radius:10px; font-weight:800; color:#0b1220; letter-spacing:.3px;}
-    .sub{color:var(--muted); font-weight:600; margin-top:4px; font-size:.95rem}
-    .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .search{
-      flex:1 1 420px; display:flex; align-items:center; gap:10px; background:var(--card); border-radius:12px; padding:8px 12px;
-      border:1px solid rgba(148,163,184,.25);
+    header .tag{ 
+      display:inline-block;
+      background:rgba(253,185,39,.18);
+      color:#fff;
+      border:1px solid rgba(253,185,39,.55);
+      padding:.25rem .6rem;
+      border-radius:999px;
+      font-weight:600;
+      letter-spacing:.2px;
+      margin-bottom:.35rem;
     }
-    .search input{
-      flex:1; border:0; outline:0; background:transparent; color:var(--ink); font-size:1rem;
-    }
-    .btn{
-      border:1px solid rgba(148,163,184,.25); background:var(--card); color:var(--ink);
-      padding:8px 12px; border-radius:10px; font-weight:700; cursor:pointer;
-    }
-    .btn:focus{box-shadow:var(--ring)}
+    header h1{margin:.2rem 0 .4rem;font-size:clamp(1.4rem,2.2vw+1rem,2.2rem)}
+    header p{margin:0;color:#eaf6ee;max-width:60ch}
     .grid{
-      display:grid; gap:16px; grid-template-columns: repeat(12,1fr); margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:16px;
+      margin-top:18px;
     }
-    .tile{
-      grid-column: span 12;
-      background:var(--card); border:1px solid rgba(148,163,184,.22); border-radius:16px; padding:18px;
-      display:grid; grid-template-columns: 80px 1fr auto; gap:16px; align-items:center;
-      transition:transform .08s ease, box-shadow .08s ease;
+    .card{
+      grid-column:span 12;
+      background:var(--card);
+      border-radius:14px;
+      padding:16px;
+      border:1px solid #e7ece9;
+      box-shadow:0 6px 14px rgba(0,0,0,.04);
+      display:flex; flex-direction:column; justify-content:space-between;
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
-    .tile:hover{transform: translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,.18)}
-    .tile .icon{
-      width:64px; height:64px; border-radius:14px; display:grid; place-items:center; font-size:28px; font-weight:800; color:#0b1220;
-      background: linear-gradient(135deg, var(--accent2), var(--accent));
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 26px rgba(0,0,0,.08);
+      border-color:#dfe7e3;
     }
-    .tile h3{margin:0; font-size:1.15rem}
-    .meta{color:var(--muted); font-size:.92rem; margin-top:6px}
-    .cta a{
-      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
-      padding:10px 12px; border-radius:10px; font-weight:800; color:#0b1220; background:linear-gradient(135deg,var(--accent),var(--accent2));
+    .card h2{
+      display:flex; align-items:center; gap:.6rem;
+      font-size:1.05rem; margin:.2rem 0 .25rem;
     }
-    .cta a:focus{outline:none; box-shadow:var(--ring)}
-    .pillrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
     .pill{
-      display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px; font-size:.8rem; font-weight:700;
-      border:1px dashed rgba(148,163,184,.35); color:var(--ink); background:rgba(148,163,184,.08);
+      display:inline-block;
+      background:#eef7f1;
+      color:var(--eagle-green);
+      font-weight:600;
+      border-radius:999px;
+      padding:.15rem .55rem;
+      font-size:.8rem;
+      border:1px solid #d9efe3;
     }
-    /* responsive */
-    @media (min-width:700px){
-      .tile{grid-column: span 6;}
+    .muted{color:var(--muted); font-size:.95rem; margin:.25rem 0 .9rem}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      --b:var(--eagle-green);
+      appearance:none; border:none;
+      background:var(--b); color:white;
+      padding:.62rem .9rem; border-radius:10px;
+      font-weight:700; letter-spacing:.2px;
+      text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;
+      box-shadow:0 6px 16px var(--ring);
+      transition:filter .15s ease, transform .05s ease;
     }
-    @media (min-width:1024px){
-      .tile{grid-column: span 6;}
+    .btn:focus-visible{outline:3px solid var(--ring); outline-offset:2px}
+    .btn:hover{filter:brightness(1.05)}
+    .btn:active{transform:translateY(1px)}
+    .btn.alt{
+      --b:var(--eagle-gold);
+      color:#0f1e17;
+      box-shadow:0 6px 16px rgba(253,185,39,.25);
     }
-    .section{
-      margin-top:28px; padding:18px; background:var(--card); border:1px solid rgba(148,163,184,.22); border-radius:16px;
+    .meta{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin-top:.4rem
     }
-    .section h4{margin:0 0 10px 0}
-    .links{display:flex; gap:10px; flex-wrap:wrap}
-    .linkchip{
-      display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; font-weight:700;
-      color:var(--link); background:rgba(96,165,250,.09); border:1px solid rgba(96,165,250,.35);
-      text-decoration:none;
+    .badge{
+      background:#f0f3f2; color:#33403a;
+      padding:.18rem .5rem; border-radius:999px; font-size:.78rem; font-weight:600;
+      border:1px solid #e1e7e4;
     }
-    .tiny{font-size:.85rem; color:var(--muted)}
-    .owner{font-weight:800; color:var(--ok)}
-    .warn{color:var(--warn); font-weight:800}
-    .danger{color:var(--danger); font-weight:800}
-    footer{color:var(--muted); font-size:.85rem; margin:26px 0 12px}
-    .hide{display:none !important}
+    footer{
+      margin-top:22px; color:#5c6a62; font-size:.9rem; text-align:center;
+    }
+    @media (min-width:640px){ .card{grid-column:span 6} }
+    @media (min-width:960px){ .card{grid-column:span 6} }
+    .logo{
+      position:absolute; right:16px; bottom:12px; opacity:.08; pointer-events:none;
+      font-weight:900; letter-spacing:.08em; color:#fff; font-size:3.8rem;
+    }
   </style>
 </head>
 <body>
-  <div class="wrap" id="app" data-theme="dark">
-    <header>
-      <div>
-        <div class="brand">
-          <span class="badge">DeSoto ISD • FINANCE</span>
-          <button class="btn" id="themeBtn" aria-label="Toggle theme">Light/Dark</button>
-        </div>
-        <div class="sub">Launchpad for PD: terms, Jeopardy, payroll SORRY game, and the Canva handout. Clear. Fast. Consistent.</div>
-      </div>
-      <div class="controls">
-        <div class="search">
-          <span aria-hidden="true">🔎</span>
-          <input id="q" placeholder="Search tools… e.g., ‘payroll’, ‘terms’, ‘game’, ‘handout’" />
-        </div>
-      </div>
+  <div class="wrap" role="main">
+    <header aria-label="DeSoto ISD Finance Training">
+      <span class="tag">DeSoto ISD • Finance</span>
+      <h1>Finance Training Launchpad</h1>
+      <p>One place to open your training tools. Use the green buttons to launch each activity. Gold buttons open the related reference.</p>
+      <div class="logo" aria-hidden="true">DESOTO</div>
     </header>
 
-    <!-- Tiles -->
-    <section class="grid" id="tiles">
+    <section class="grid" aria-label="Quick launch cards">
       <!-- Terminology -->
-      <article class="tile" data-tags="terms glossary definitions finance vocabulary">
-        <div class="icon">A-Z</div>
-        <div>
-          <h3>Frequently-Used Finance Terminology</h3>
-          <div class="meta">
-            What it is: a browsable glossary with official + plain-language definitions and myth-busters.
-            <br/>When to use: before Jeopardy, during campus Q&A, or anytime someone’s fuzzy on a term.
-            <br/>Owner: <span class="owner">Bessye (Budget)</span> + <span class="owner">Elizabeth (Grants)</span>
-          </div>
-          <div class="pillrow">
-            <span class="pill">Budget vs Actuals</span>
-            <span class="pill">PO / Requisition</span>
-            <span class="pill">Encumbrance</span>
-            <span class="pill">FLSA • Exempt/Non-Exempt</span>
-          </div>
+      <article class="card">
+        <h2>📚 Frequently Used Finance Terminology</h2>
+        <p class="muted">Plain-English glossary aligned to district usage—great to keep open while you play the games.</p>
+        <div class="actions">
+          <a class="btn" href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank" rel="noopener">Open Glossary</a>
+          <a class="btn alt" href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks" target="_blank" rel="noopener">Canva Reference</a>
         </div>
-        <div class="cta">
-          <a href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank" rel="noopener">Open</a>
+        <div class="meta">
+          <span class="badge">Updated by Finance PD</span>
+          <span class="badge">Desktop & Mobile</span>
         </div>
       </article>
 
       <!-- Jeopardy -->
-      <article class="tile" data-tags="jeopardy game quiz budget payroll grants ap accounting review">
-        <div class="icon">❓</div>
-        <div>
-          <h3>Finance Jeopardy</h3>
-          <div class="meta">
-            What it is: live quiz (Budget, Purchasing/AP, Grants, Payroll, Accounting).
-            <br/>When to use: 10–15 min warm-up or closing review.
-            <br/>Owner: <span class="owner">Bessye</span> (host) • Scorekeeper: <span class="owner">Ron</span>
-          </div>
-          <div class="pillrow">
-            <span class="pill">Right role</span><span class="pill">Right task</span><span class="pill">Right time</span>
-          </div>
+      <article class="card">
+        <h2>❓ Payroll Jeopardy</h2>
+        <p class="muted">Rapid-fire review of Payroll/Timekeeping concepts. Use after intros to prime the room.</p>
+        <div class="actions">
+          <a class="btn" href="https://elizabethbostic-dev.github.io/Payroll-Jeopardy/" target="_blank" rel="noopener">Launch Jeopardy</a>
+          <span class="pill" title="Best for projector + teams">Projector-Ready</span>
         </div>
-        <div class="cta">
-          <a href="https://elizabethbostic-dev.github.io/Payroll-Jeopardy/" target="_blank" rel="noopener">Play</a>
+        <div class="meta">
+          <span class="badge">Scored Round</span><span class="badge">Facilitator-led</span>
         </div>
       </article>
 
-      <!-- SORRY Payroll -->
-      <article class="tile" data-tags="sorry board game payroll timekeeping compliance weekly approval frontline">
-        <div class="icon">🧩</div>
-        <div>
-          <h3>Payroll Pathway • SORRY-style</h3>
-          <div class="meta">
-            What it is: life-size team game that models weekly approval, risk points, and deadlines.
-            <br/>When to use: 25–35 min main activity. One process. One win condition. No chaos.
-            <br/>Owner: <span class="owner">Ana (Payroll)</span> • Facilitation: <span class="owner">Elizabeth</span>
-          </div>
-          <div class="pillrow">
-            <span class="pill">Weekly Approval</span><span class="pill">Final Status P/A</span><span class="pill">Deadline discipline</span>
-          </div>
+      <!-- SORRY game -->
+      <article class="card">
+        <h2>🎲 SORRY: Payroll Pathway (Floor Game)</h2>
+        <p class="muted">Life-sized lanes for Employee • Supervisor • Admin/Payroll. Answer right to advance—miss and the board says “SORRY.”</p>
+        <div class="actions">
+          <a class="btn" href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank" rel="noopener">Open Facilitation Page</a>
+          <span class="pill">Uses print kit</span>
         </div>
-        <div class="cta">
-          <a href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank" rel="noopener">Launch</a>
+        <div class="meta">
+          <span class="badge">Compliance Focus</span><span class="badge">Deadline Pressure</span>
         </div>
       </article>
 
-      <!-- Canva Handout -->
-      <article class="tile" data-tags="handout pdf canva map reference flow vocabulary">
-        <div class="icon">📝</div>
-        <div>
-          <h3>Handout: Terminology & Quick-Reference</h3>
-          <div class="meta">
-            What it is: printable reference (one-pager) for vocabulary + “who to contact / what to do”.
-            <br/>When to use: distribute at check-in; keep at desks.
-            <br/>Owner: <span class="owner">Elizabeth</span> • Content checks: <span class="owner">Ron, Ana, Saundra</span>
-          </div>
-          <div class="pillrow">
-            <span class="pill">Desk-ready</span><span class="pill">Grayscale OK</span><span class="pill">8.5×11</span>
-          </div>
+      <!-- Finance Troubleshooting / (placeholder if you want) -->
+      <article class="card">
+        <h2>🧭 Finance Quick References</h2>
+        <p class="muted">Contacts and “who handles what” (Budget • AP • Procurement • Grants • Cash Handling • Payroll).</p>
+        <div class="actions">
+          <!-- If you have a link later, swap the href; currently points to the Terminology as a safe default -->
+          <a class="btn" href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank" rel="noopener">Open Reference</a>
+          <a class="btn alt" href="mailto:payroll@desotoisd.org">Email Payroll</a>
         </div>
-        <div class="cta">
-          <a href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks" target="_blank" rel="noopener">Open</a>
+        <div class="meta">
+          <span class="badge">“Who to Contact”</span><span class="badge">Policy-Aligned</span>
         </div>
       </article>
-    </section>
-
-    <!-- Context & Quick Links -->
-    <section class="section">
-      <h4>Context that helps leaders make the right move</h4>
-      <p class="tiny">
-        • “Right task, right role, right time” = internal control. Errors cost time, credibility, and sometimes funding.
-        • The SORRY game uses **penalties** that mirror real risks (late approval, wrong tab, no pre-approval on OT).
-        • Jeopardy primes/reinforces core rules; the glossary prevents “I didn’t know” moments.
-      </p>
-      <div class="links">
-        <!-- Replace these placeholders when you’re ready -->
-        <a class="linkchip" href="#" aria-disabled="true">Payroll Calendar (add link)</a>
-        <a class="linkchip" href="#" aria-disabled="true">Contacts & Escalation (add link)</a>
-        <a class="linkchip" href="#" aria-disabled="true">Policy: “No PO, No Pay” (add link)</a>
-        <a class="linkchip" href="#" aria-disabled="true">Grant Allowability Cheatsheet (add link)</a>
-      </div>
-    </section>
-
-    <section class="section">
-      <h4>Who owns what (fast memory aid)</h4>
-      <p class="tiny">
-        Payroll = paying people (Ana). Purchasing/AP = vendors, invoices, fixed assets (Saundra). Procurement = bids/contracts (Michael). 
-        Budget = planning, codes, amendments (Bessye). Grants = allowability, splits, time & effort (Elizabeth). 
-        Accounting/Cash/Audit = deposits, reconciliations, findings (Ron).
-      </p>
-      <p class="tiny warn">Escalate smart: content owner first → copy Budget/Grants if policy/compliance → copy Ron for repeat issues/audit trail.</p>
-      <p class="tiny danger">Avoid: buying first (no PO), approving OT after the fact, missing Tuesday/Wednesday time approvals, charging grants before allowability check.</p>
     </section>
 
     <footer>
-      Built for PD consistency and clarity. Light/Dark friendly. Searchable. Hosted on GitHub Pages.
+      <p>© DeSoto ISD • Finance Department Training • Eagle Green & Gold theme</p>
     </footer>
   </div>
-
-  <script>
-    // theme toggle
-    const root = document.getElementById('app');
-    const themeBtn = document.getElementById('themeBtn');
-    const saved = localStorage.getItem('theme');
-    if(saved){ root.setAttribute('data-theme', saved); }
-    themeBtn.addEventListener('click', () => {
-      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-
-    // search filter
-    const q = document.getElementById('q');
-    const tiles = Array.from(document.querySelectorAll('.tile'));
-    q.addEventListener('input', () => {
-      const term = q.value.toLowerCase().trim();
-      tiles.forEach(t => {
-        const text = t.innerText.toLowerCase();
-        const tags = t.getAttribute('data-tags') || '';
-        const hit = text.includes(term) || tags.includes(term);
-        t.classList.toggle('hide', term && !hit);
-      });
-    });
-  </script>
 </body>
 </html>
