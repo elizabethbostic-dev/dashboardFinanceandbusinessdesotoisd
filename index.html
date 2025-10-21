@@ -1,276 +1,131 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Who Does What – Finance PD | DeSoto ISD</title>
-  <style>
-    /* 1. Variables */
-    :root {
-      --green: #0B6E4F;
-      --green-600: #0f8b64;
-      --gold: #F7B500;
-      --ink: #0f172a;
-      --slate: #334155;
-      --bg: #f7faf7;
-      --card: #ffffff;
-      --red: #c2410c;
-    }
-
-    /* 2. Base Styles */
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      font-family: system-ui, sans-serif;
-      line-height: 1.5;
-      background: var(--bg);
-      color: var(--ink);
-      margin: 0;
-    }
-    a { color: var(--green); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* 3. Header & Layout */
-    header {
-      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
-      color: white;
-      padding: 28px 24px;
-      border-bottom: 6px solid var(--gold);
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.2rem);
-    }
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 24px;
-    }
-
-    /* 4. Flow Nodes */
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 12px;
-      margin: 20px 0;
-    }
-    .node {
-      border: 1px solid #d1e7dd;
-      background: var(--card);
-      border-radius: 14px;
-      padding: 20px 12px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--green);
-      transition: transform .2s, box-shadow .2s, background .2s;
-    }
-    .node:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      background: #e6f4ee;
-    }
-
-    /* 5. Modal (Dialog) Styles */
-    .modal::backdrop {
-      background: rgba(0,0,0,.6);
-    }
-    .modal {
-        border: none;
-        padding: 0;
-        border-radius: 16px;
-        max-width: 700px;
-        max-height: 85vh;
-        overflow: hidden;
-    }
-    .sheet-header {
-      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
-      color: white;
-      padding: 20px;
-      position: relative;
-    }
-    .sheet-body {
-        padding: 20px;
-        overflow-y: auto; /* Scrollable content */
-    }
-    .sheet-body h4 {
-        margin: 10px 0 5px 0;
-        color: var(--slate);
-        font-size: 1rem;
-    }
-    button.close {
-      position: absolute;
-      right: 15px;
-      top: 15px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
-      padding: 5px;
-    }
-    .contact-info {
-        background: #f0f4f8;
-        padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-    }
-    .contact-info a { color: var(--green); }
-    
-    /* 6. Scenario Details */
-    details {
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 10px;
-      margin: 10px 0;
-      background: #fafafa;
-    }
-    summary {
-        font-weight: 700;
-        cursor: pointer;
-    }
-    .do, .dont {
-        padding: 8px;
-        border-radius: 6px;
-        margin: 10px 0;
-    }
-    .do { border-left: 4px solid var(--green); background: #e6f4ee; }
-    .dont { border-left: 4px solid var(--red); background: #fef2f2; }
-    .do strong, .dont strong { color: var(--ink); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance PD Resource Dashboard</title>
+    <style>
+        /* CSS for Basic Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9; /* Light background */
+            color: #333;
+        }
+        .header {
+            background-color: #004c99; /* Deep Blue Header */
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding-top: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+        .card h2 {
+            color: #004c99;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .card p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .card a {
+            display: inline-block;
+            background-color: #ff9900; /* Accent Color - Orange/Gold */
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .card a:hover {
+            background-color: #cc7a00;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.8em;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Quick “Who Does What” in Finance PD</h1>
-    <p>Click a category to learn who to contact, what to do, and what to avoid.</p>
-  </header>
-  <main>
-    <section class="flow">
-      <div class="node" data-lane="Budget">Budget</div>
-      <div class="node" data-lane="Payroll">Payroll</div>
-      <div class="node" data-lane="Purchasing / AP">Purchasing / AP</div>
-      <div class="node" data-lane="Procurement">Procurement</div>
-      <div class="node" data-lane="Grants / Special Revenue">Grants</div>
-      <div class="node" data-lane="Cash Handling / Audit">Cash / Audit</div>
-    </section>
-  </main>
 
-  <dialog class="modal" id="modal">
-    <div class="sheet">
-      <div class="sheet-header">
-        <button class="close" onclick="modal.close()" aria-label="Close dialog">×</button>
-        <h2 id="laneTitle"></h2>
-      </div>
-      <div class="sheet-body" id="laneBody"></div>
+    <div class="header">
+        <h1>Finance PD Resource Dashboard 💰</h1>
+        <p>Your central hub for DeSoto ISD Finance Professional Development</p>
     </div>
-  </dialog>
 
-  <script>
-    const owners = {
-      "Budget": { owner: "Bessye", contact: "bessye.adams@desotoisd.org" },
-      "Payroll": { owner: "Ana", contact: "ana@example.org" },
-      "Purchasing / AP": { owner: "Saundra", contact: "saundra@example.org" },
-      "Procurement": { owner: "Michael", contact: "michael@example.org" },
-      "Grants / Special Revenue": { owner: "Elizabeth", contact: "elizabeth.bostic@desotoisd.org" },
-      "Cash Handling / Audit": { owner: "Ron", contact: "ron@example.org" }
-    };
-    
-    const scenarios = {
-      "Budget": [
-        {
-          title: "Negative balance before month-end",
-          when: "Budget line shows a negative or near-zero balance.",
-          do: "Submit a budget amendment with account string and justification.",
-          dont: "Don’t move expenses without approval."
-        },
-        {
-          title: "Wrong code on expense",
-          when: "Transaction posted to the wrong segment.",
-          do: "Submit reclass request with full details and documentation.",
-          dont: "Don’t ‘park’ charges on a random line."
-        }
-      ],
-      "Payroll": [
-        {
-          title: "Stipend missing from paycheck",
-          when: "Approved stipend didn’t appear on payroll.",
-          do: "Open a ticket with Payroll, include employee ID, pay period, and approver.",
-          dont: "Don’t request a manual check through AP."
-        }
-      ],
-      "Purchasing / AP": [
-        {
-          title: "Vendor reports unpaid invoice",
-          when: "Vendor contacts you about a past-due invoice.",
-          do: "Check PO match and receiving, then email AP with the PO, invoice, and receipt.",
-          dont: "Don’t send invoice alone — delays payment."
-        }
-      ],
-      "Procurement": [
-        {
-          title: "Purchase over $10,000",
-          when: "Planned purchase exceeds local threshold.",
-          do: "Contact Procurement for quotes/bid requirements and timeline.",
-          dont: "Don’t split purchases to avoid thresholds."
-        }
-      ],
-      "Grants / Special Revenue": [
-        {
-          title: "Unclear if cost is allowable",
-          when: "You’re unsure if an expense can be charged to a grant.",
-          do: "Email Grants team with justification and program alignment; verify in eGrants.",
-          dont: "Don’t code first and ask later."
-        }
-      ],
-      "Cash Handling / Audit": [
-        {
-          title: "Fundraiser cash deposit",
-          when: "Cash/checks collected from event.",
-          do: "Count with two people, complete receipt log, and deposit within required timeframe.",
-          dont: "Don’t store cash in classrooms or take it home."
-        }
-      ]
-    };
+    <div class="container">
+        <div class="dashboard-grid">
 
-    const modal = document.getElementById("modal");
-    const laneTitle = document.getElementById("laneTitle");
-    const laneBody = document.getElementById("laneBody");
-
-    document.querySelectorAll(".node").forEach(node => {
-      node.addEventListener("click", () => {
-        const lane = node.dataset.lane;
-        const ownerData = owners[lane];
-        const items = scenarios[lane] || [];
-
-        laneTitle.textContent = lane;
-
-        // 1. Contact Information
-        const contactHtml = `
-            <div class="contact-info">
-                <strong>Owner:</strong> ${ownerData.owner} &bullet; 
-                <a href="mailto:${ownerData.contact}">${ownerData.contact}</a>
+            <div class="card">
+                <h2>Interactive Learning Game</h2>
+                <p>Test your knowledge with the Finance PD Jeopardy Game.</p>
+                <a href="https://stephanieymccloud.my.canva.site/copy-of-finance-pd-jeopardy-game-html-css-code" target="_blank">
+                    Play Jeopardy Now! 🚀
+                </a>
             </div>
-        `;
 
-        // 2. Scenarios
-        const scenariosHtml = items.map(s => `
-          <details>
-            <summary>${s.title}</summary>
-            <h4>When you see this...</h4>
-            <p>${s.when}</p>
-            <div class="do">
-              <strong>Do:</strong> ${s.do}
+            <div class="card">
+                <h2>Finance Terminology Guide</h2>
+                <p>Access the interactive guide for frequently used financial terms.</p>
+                <a href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank">
+                    View Terminology 📖
+                </a>
             </div>
-            <div class="dont">
-              <strong>Don’t:</strong> ${s.dont}
-            </div>
-          </details>
-        `).join("");
 
-        laneBody.innerHTML = contactHtml + scenariosHtml;
-        modal.showModal();
-      });
-    });
-  </script>
+            <div class="card">
+                <h2>Payroll Information & FAQs</h2>
+                <p>Find answers and resources related to payroll and time-off.</p>
+                <a href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank">
+                    Access Payroll Info 🧾
+                </a>
+            </div>
+            
+            <div class="card">
+                <h2>Canva Design Reference</h2>
+                <p>View the digital design presentation for visual consistency or PD.</p>
+                <a href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h665b59aa75" target="_blank">
+                    Open Design 🎨
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 PD Resource Dashboard. Hosted on GitHub Pages.</p>
+    </div>
+
 </body>
 </html>
