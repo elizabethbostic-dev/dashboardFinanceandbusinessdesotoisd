@@ -2,198 +2,275 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DeSoto ISD • Finance Training Launchpad</title>
-  <meta name="description" content="Quick launch dashboard to Finance Terminology, Payroll Jeopardy, and SORRY: Payroll Pathway." />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Who Does What – Finance PD | DeSoto ISD</title>
   <style>
-    :root{
-      --eagle-green:#007A33;   /* Primary */
-      --eagle-gold:#FDB927;    /* Accent */
-      --dk:#0b1b12;
-      --bg:#f7f9f8;
-      --card:#ffffff;
-      --muted:#5b6b62;
-      --ring:rgba(0,122,51,.25);
+    /* 1. Variables */
+    :root {
+      --green: #0B6E4F;
+      --green-600: #0f8b64;
+      --gold: #F7B500;
+      --ink: #0f172a;
+      --slate: #334155;
+      --bg: #f7faf7;
+      --card: #ffffff;
+      --red: #c2410c;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--dk);
+
+    /* 2. Base Styles */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+      background: var(--bg);
+      color: var(--ink);
+      margin: 0;
     }
-    .wrap{
-      max-width:1050px;
-      margin-inline:auto;
-      padding:28px 20px 40px;
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* 3. Header & Layout */
+    header {
+      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
+      color: white;
+      padding: 28px 24px;
+      border-bottom: 6px solid var(--gold);
     }
-    header{
-      background:linear-gradient(135deg, var(--eagle-green) 0%, #025e28 60%);
-      color:#fff;
-      border-radius:18px;
-      padding:28px 22px;
-      position:relative;
-      overflow:hidden;
-      box-shadow:0 10px 24px rgba(0,0,0,.08);
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.2rem);
     }
-    header .tag{ 
-      display:inline-block;
-      background:rgba(253,185,39,.18);
-      color:#fff;
-      border:1px solid rgba(253,185,39,.55);
-      padding:.25rem .6rem;
-      border-radius:999px;
-      font-weight:600;
-      letter-spacing:.2px;
-      margin-bottom:.35rem;
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 24px;
     }
-    header h1{margin:.2rem 0 .4rem;font-size:clamp(1.4rem,2.2vw+1rem,2.2rem)}
-    header p{margin:0;color:#eaf6ee;max-width:60ch}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:16px;
-      margin-top:18px;
+
+    /* 4. Flow Nodes */
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
     }
-    .card{
-      grid-column:span 12;
-      background:var(--card);
-      border-radius:14px;
-      padding:16px;
-      border:1px solid #e7ece9;
-      box-shadow:0 6px 14px rgba(0,0,0,.04);
-      display:flex; flex-direction:column; justify-content:space-between;
-      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    .node {
+      border: 1px solid #d1e7dd;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--green);
+      transition: transform .2s, box-shadow .2s, background .2s;
     }
-    .card:hover{
-      transform:translateY(-2px);
-      box-shadow:0 12px 26px rgba(0,0,0,.08);
-      border-color:#dfe7e3;
+    .node:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      background: #e6f4ee;
     }
-    .card h2{
-      display:flex; align-items:center; gap:.6rem;
-      font-size:1.05rem; margin:.2rem 0 .25rem;
+
+    /* 5. Modal (Dialog) Styles */
+    .modal::backdrop {
+      background: rgba(0,0,0,.6);
     }
-    .pill{
-      display:inline-block;
-      background:#eef7f1;
-      color:var(--eagle-green);
-      font-weight:600;
-      border-radius:999px;
-      padding:.15rem .55rem;
-      font-size:.8rem;
-      border:1px solid #d9efe3;
+    .modal {
+        border: none;
+        padding: 0;
+        border-radius: 16px;
+        max-width: 700px;
+        max-height: 85vh;
+        overflow: hidden;
     }
-    .muted{color:var(--muted); font-size:.95rem; margin:.25rem 0 .9rem}
-    .actions{display:flex; gap:10px; flex-wrap:wrap}
-    .btn{
-      --b:var(--eagle-green);
-      appearance:none; border:none;
-      background:var(--b); color:white;
-      padding:.62rem .9rem; border-radius:10px;
-      font-weight:700; letter-spacing:.2px;
-      text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;
-      box-shadow:0 6px 16px var(--ring);
-      transition:filter .15s ease, transform .05s ease;
+    .sheet-header {
+      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
+      color: white;
+      padding: 20px;
+      position: relative;
     }
-    .btn:focus-visible{outline:3px solid var(--ring); outline-offset:2px}
-    .btn:hover{filter:brightness(1.05)}
-    .btn:active{transform:translateY(1px)}
-    .btn.alt{
-      --b:var(--eagle-gold);
-      color:#0f1e17;
-      box-shadow:0 6px 16px rgba(253,185,39,.25);
+    .sheet-body {
+        padding: 20px;
+        overflow-y: auto; /* Scrollable content */
     }
-    .meta{
-      display:flex; gap:8px; flex-wrap:wrap;
-      margin-top:.4rem
+    .sheet-body h4 {
+        margin: 10px 0 5px 0;
+        color: var(--slate);
+        font-size: 1rem;
     }
-    .badge{
-      background:#f0f3f2; color:#33403a;
-      padding:.18rem .5rem; border-radius:999px; font-size:.78rem; font-weight:600;
-      border:1px solid #e1e7e4;
+    button.close {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 5px;
     }
-    footer{
-      margin-top:22px; color:#5c6a62; font-size:.9rem; text-align:center;
+    .contact-info {
+        background: #f0f4f8;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
     }
-    @media (min-width:640px){ .card{grid-column:span 6} }
-    @media (min-width:960px){ .card{grid-column:span 6} }
-    .logo{
-      position:absolute; right:16px; bottom:12px; opacity:.08; pointer-events:none;
-      font-weight:900; letter-spacing:.08em; color:#fff; font-size:3.8rem;
+    .contact-info a { color: var(--green); }
+    
+    /* 6. Scenario Details */
+    details {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px 0;
+      background: #fafafa;
     }
+    summary {
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .do, .dont {
+        padding: 8px;
+        border-radius: 6px;
+        margin: 10px 0;
+    }
+    .do { border-left: 4px solid var(--green); background: #e6f4ee; }
+    .dont { border-left: 4px solid var(--red); background: #fef2f2; }
+    .do strong, .dont strong { color: var(--ink); }
   </style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <header aria-label="DeSoto ISD Finance Training">
-      <span class="tag">DeSoto ISD • Finance</span>
-      <h1>Finance Training Launchpad</h1>
-      <p>One place to open your training tools. Use the green buttons to launch each activity. Gold buttons open the related reference.</p>
-      <div class="logo" aria-hidden="true">DESOTO</div>
-    </header>
-
-    <section class="grid" aria-label="Quick launch cards">
-      <!-- Terminology -->
-      <article class="card">
-        <h2>📚 Frequently Used Finance Terminology</h2>
-        <p class="muted">Plain-English glossary aligned to district usage—great to keep open while you play the games.</p>
-        <div class="actions">
-          <a class="btn" href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank" rel="noopener">Open Glossary</a>
-          <a class="btn alt" href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks" target="_blank" rel="noopener">Canva Reference</a>
-        </div>
-        <div class="meta">
-          <span class="badge">Updated by Finance PD</span>
-          <span class="badge">Desktop & Mobile</span>
-        </div>
-      </article>
-
-      <!-- Jeopardy -->
-      <article class="card">
-        <h2>❓ Payroll Jeopardy</h2>
-        <p class="muted">Rapid-fire review of Payroll/Timekeeping concepts. Use after intros to prime the room.</p>
-        <div class="actions">
-          <a class="btn" href="https://elizabethbostic-dev.github.io/Payroll-Jeopardy/" target="_blank" rel="noopener">Launch Jeopardy</a>
-          <span class="pill" title="Best for projector + teams">Projector-Ready</span>
-        </div>
-        <div class="meta">
-          <span class="badge">Scored Round</span><span class="badge">Facilitator-led</span>
-        </div>
-      </article>
-
-      <!-- SORRY game -->
-      <article class="card">
-        <h2>🎲 SORRY: Payroll Pathway (Floor Game)</h2>
-        <p class="muted">Life-sized lanes for Employee • Supervisor • Admin/Payroll. Answer right to advance—miss and the board says “SORRY.”</p>
-        <div class="actions">
-          <a class="btn" href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank" rel="noopener">Open Facilitation Page</a>
-          <span class="pill">Uses print kit</span>
-        </div>
-        <div class="meta">
-          <span class="badge">Compliance Focus</span><span class="badge">Deadline Pressure</span>
-        </div>
-      </article>
-
-      <!-- Finance Troubleshooting / (placeholder if you want) -->
-      <article class="card">
-        <h2>🧭 Finance Quick References</h2>
-        <p class="muted">Contacts and “who handles what” (Budget • AP • Procurement • Grants • Cash Handling • Payroll).</p>
-        <div class="actions">
-          <!-- If you have a link later, swap the href; currently points to the Terminology as a safe default -->
-          <a class="btn" href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank" rel="noopener">Open Reference</a>
-          <a class="btn alt" href="mailto:payroll@desotoisd.org">Email Payroll</a>
-        </div>
-        <div class="meta">
-          <span class="badge">“Who to Contact”</span><span class="badge">Policy-Aligned</span>
-        </div>
-      </article>
+  <header>
+    <h1>Quick “Who Does What” in Finance PD</h1>
+    <p>Click a category to learn who to contact, what to do, and what to avoid.</p>
+  </header>
+  <main>
+    <section class="flow">
+      <div class="node" data-lane="Budget">Budget</div>
+      <div class="node" data-lane="Payroll">Payroll</div>
+      <div class="node" data-lane="Purchasing / AP">Purchasing / AP</div>
+      <div class="node" data-lane="Procurement">Procurement</div>
+      <div class="node" data-lane="Grants / Special Revenue">Grants</div>
+      <div class="node" data-lane="Cash Handling / Audit">Cash / Audit</div>
     </section>
+  </main>
 
-    <footer>
-      <p>© DeSoto ISD • Finance Department Training • Eagle Green & Gold theme</p>
-    </footer>
-  </div>
+  <dialog class="modal" id="modal">
+    <div class="sheet">
+      <div class="sheet-header">
+        <button class="close" onclick="modal.close()" aria-label="Close dialog">×</button>
+        <h2 id="laneTitle"></h2>
+      </div>
+      <div class="sheet-body" id="laneBody"></div>
+    </div>
+  </dialog>
+
+  <script>
+    const owners = {
+      "Budget": { owner: "Bessye", contact: "bessye.adams@desotoisd.org" },
+      "Payroll": { owner: "Ana", contact: "ana@example.org" },
+      "Purchasing / AP": { owner: "Saundra", contact: "saundra@example.org" },
+      "Procurement": { owner: "Michael", contact: "michael@example.org" },
+      "Grants / Special Revenue": { owner: "Elizabeth", contact: "elizabeth.bostic@desotoisd.org" },
+      "Cash Handling / Audit": { owner: "Ron", contact: "ron@example.org" }
+    };
+    
+    const scenarios = {
+      "Budget": [
+        {
+          title: "Negative balance before month-end",
+          when: "Budget line shows a negative or near-zero balance.",
+          do: "Submit a budget amendment with account string and justification.",
+          dont: "Don’t move expenses without approval."
+        },
+        {
+          title: "Wrong code on expense",
+          when: "Transaction posted to the wrong segment.",
+          do: "Submit reclass request with full details and documentation.",
+          dont: "Don’t ‘park’ charges on a random line."
+        }
+      ],
+      "Payroll": [
+        {
+          title: "Stipend missing from paycheck",
+          when: "Approved stipend didn’t appear on payroll.",
+          do: "Open a ticket with Payroll, include employee ID, pay period, and approver.",
+          dont: "Don’t request a manual check through AP."
+        }
+      ],
+      "Purchasing / AP": [
+        {
+          title: "Vendor reports unpaid invoice",
+          when: "Vendor contacts you about a past-due invoice.",
+          do: "Check PO match and receiving, then email AP with the PO, invoice, and receipt.",
+          dont: "Don’t send invoice alone — delays payment."
+        }
+      ],
+      "Procurement": [
+        {
+          title: "Purchase over $10,000",
+          when: "Planned purchase exceeds local threshold.",
+          do: "Contact Procurement for quotes/bid requirements and timeline.",
+          dont: "Don’t split purchases to avoid thresholds."
+        }
+      ],
+      "Grants / Special Revenue": [
+        {
+          title: "Unclear if cost is allowable",
+          when: "You’re unsure if an expense can be charged to a grant.",
+          do: "Email Grants team with justification and program alignment; verify in eGrants.",
+          dont: "Don’t code first and ask later."
+        }
+      ],
+      "Cash Handling / Audit": [
+        {
+          title: "Fundraiser cash deposit",
+          when: "Cash/checks collected from event.",
+          do: "Count with two people, complete receipt log, and deposit within required timeframe.",
+          dont: "Don’t store cash in classrooms or take it home."
+        }
+      ]
+    };
+
+    const modal = document.getElementById("modal");
+    const laneTitle = document.getElementById("laneTitle");
+    const laneBody = document.getElementById("laneBody");
+
+    document.querySelectorAll(".node").forEach(node => {
+      node.addEventListener("click", () => {
+        const lane = node.dataset.lane;
+        const ownerData = owners[lane];
+        const items = scenarios[lane] || [];
+
+        laneTitle.textContent = lane;
+
+        // 1. Contact Information
+        const contactHtml = `
+            <div class="contact-info">
+                <strong>Owner:</strong> ${ownerData.owner} &bullet; 
+                <a href="mailto:${ownerData.contact}">${ownerData.contact}</a>
+            </div>
+        `;
+
+        // 2. Scenarios
+        const scenariosHtml = items.map(s => `
+          <details>
+            <summary>${s.title}</summary>
+            <h4>When you see this...</h4>
+            <p>${s.when}</p>
+            <div class="do">
+              <strong>Do:</strong> ${s.do}
+            </div>
+            <div class="dont">
+              <strong>Don’t:</strong> ${s.dont}
+            </div>
+          </details>
+        `).join("");
+
+        laneBody.innerHTML = contactHtml + scenariosHtml;
+        modal.showModal();
+      });
+    });
+  </script>
 </body>
 </html>
