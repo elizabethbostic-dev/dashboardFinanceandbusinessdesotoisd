@@ -5,133 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance PD Resource Dashboard</title>
     <style>
-        /* Modern and Visually Appealing Styling */
+        /* New Green and Gold Color Scheme */
         :root {
-            --primary-color: #004c99; /* Deep Blue (DeSoto ISD primary) */
-            --accent-color: #ff9900; /* Gold/Orange (DeSoto ISD accent) */
-            --bg-light: #f4f7f9;
+            --primary-color: #008000; /* Deep Green */
+            --secondary-color: #FFD700; /* Gold */
+            --background-light: #f4f9f4; /* Very Light Green/Gray */
             --text-dark: #333;
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-medium: rgba(0, 0, 0, 0.15);
         }
+
+        /* CSS for Basic Styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-light);
+            background-color: var(--background-light);
             color: var(--text-dark);
-            line-height: 1.6;
         }
         .header {
             background-color: var(--primary-color);
             color: white;
-            padding: 30px 40px;
+            padding: 20px 40px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
         }
         .header h1 {
             margin: 0;
-            font-size: 2.5em;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .header p {
-            margin-top: 5px;
-            font-size: 1.1em;
-            opacity: 0.9;
+            font-size: 2.2em;
         }
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 40px auto;
-            padding: 0 25px;
+            padding: 0 20px;
         }
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 25px;
             padding-top: 20px;
         }
         .card {
             background-color: white;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px var(--shadow-light);
-            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
-            border: 2px solid transparent; /* for the hover effect */
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px var(--shadow-medium);
-            border: 2px solid var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
         }
         .card h2 {
             color: var(--primary-color);
-            margin-top: 10px;
-            font-size: 1.6em;
-            border-bottom: 2px solid var(--bg-light);
-            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.5em;
         }
         .card p {
-            font-size: 1em;
+            font-size: 0.9em;
             color: #666;
-            margin-bottom: 25px;
-            min-height: 50px; /* Ensures card height consistency */
-        }
-        .icon {
-            font-size: 3em;
-            color: var(--accent-color);
-            display: block;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
         }
         .card a {
             display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 1em;
-            transition: background-color 0.3s, transform 0.1s;
+            transition: background-color 0.3s;
+            border: 2px solid var(--primary-color); /* Added border for contrast */
         }
         .card a:hover {
-            background-color: #cc7a00;
-            transform: scale(1.02);
+            background-color: #e5c100; /* Darker Gold on hover */
         }
         .footer {
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             margin-top: 50px;
-            font-size: 0.9em;
+            font-size: 0.8em;
             color: #999;
-            background-color: #e9ebee;
-        }
-        /* Media Query for smaller screens */
-        @media (max-width: 600px) {
-            .header {
-                padding: 20px 10px;
-            }
-            .header h1 {
-                font-size: 2em;
-            }
-            .container {
-                margin: 20px auto;
-            }
-            .dashboard-grid {
-                gap: 20px;
-            }
-            .card {
-                padding: 25px 15px;
-            }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>Finance PD Resource Dashboard 📊</h1>
+        <h1>Finance PD Resource Dashboard 💰</h1>
         <p>Your central hub for DeSoto ISD Finance Professional Development</p>
     </div>
 
@@ -139,56 +98,42 @@
         <div class="dashboard-grid">
 
             <div class="card">
-                <span class="icon">🚀</span>
                 <h2>Interactive Learning Game</h2>
                 <p>Test your knowledge with the Finance PD Jeopardy Game.</p>
-                <a href="[JEOPARDY_GAME_LINK_HERE]" target="_blank">
-                    Play Jeopardy Now!
+                <a href="https://stephanieymccloud.my.canva.site/copy-of-finance-pd-jeopardy-game-html-css-code" target="_blank">
+                    Play Jeopardy Now! 🚀
                 </a>
             </div>
 
             <div class="card">
-                <span class="icon">🧾</span>
-                <h2>Payroll Information & FAQs</h2>
-                <p>Find answers and resources related to payroll and time-off.</p>
-                <a href="https://desotoisd-my.sharepoint.com/:p:/g/personal/kamrie_hurd_desotoisd_org/EcPUxaLlTeNJnaUh591-xOQBS760-LXyxCKuMLiTo2QP3g?e=5tXzDK" target="_blank">
-                    View Presentation
-                </a>
-            </div>
-
-            <div class="card">
-                <span class="icon">🕹️</span>
-                <h2>Sorry! Payroll Game</h2>
-                <p>Practice your payroll approval knowledge with an interactive game.</p>
-                <a href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank">
-                    Play the Game
-                </a>
-            </div>
-            
-            <div class="card">
-                <span class="icon">📖</span>
                 <h2>Finance Terminology Guide</h2>
                 <p>Access the interactive guide for frequently used financial terms.</p>
                 <a href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank">
-                    View Terminology
+                    View Terminology 📖
                 </a>
             </div>
 
             <div class="card">
-                <span class="icon">🎨</span>
-                <h2>Canva Design Reference</h2>
-                <p>View the digital design presentation for visual consistency or PD.</p>
-                <a href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h665b59aa75" target="_blank">
-                    Open Design
+                <h2>Payroll Information & FAQs</h2>
+                <p>Find answers and resources related to payroll and time-off.</p>
+                <a href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank">
+                    Access Payroll Info 🧾
                 </a>
             </div>
             
             <div class="card">
-                <span class="icon">✅</span>
+                <h2>Canva Design Reference</h2>
+                <p>View the digital design presentation for visual consistency or PD.</p>
+                <a href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h665b59aa75" target="_blank">
+                    Open Design 🎨
+                </a>
+            </div>
+
+            <div class="card">
                 <h2>Payroll Approval Leaders PDF</h2>
-                <p>Download the official payroll approval expectations and contact information.</p>
-                <a href="uploaded:Payroll Approval Leaders 9.24.25 1.pdf" target="_blank">
-                    Download File
+                <p>View the official payroll approval expectations and contact information.</p>
+                <a href="https://drive.google.com/file/d/1F5VP7kTNOdcIPjvCn-JAJ2RHcg4I0Kjy/view?usp=sharing" target="_blank">
+                    View Document 📄
                 </a>
             </div>
 
