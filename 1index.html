@@ -1,205 +1,203 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Who Does What – Finance PD | DeSoto ISD</title>
-  <style>
-    :root {
-      --green: #0B6E4F;
-      --gold: #F7B500;
-      --ink: #0f172a;
-      --bg: #f7faf7;
-      --card: #ffffff;
-    }
-    body {
-      font-family: system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      margin: 0;
-    }
-    header {
-      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
-      color: white;
-      padding: 28px 24px;
-      border-bottom: 6px solid var(--gold);
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.2rem);
-    }
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 24px;
-    }
-    .flow {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-      margin: 20px 0;
-    }
-    .node {
-      border: 2px solid #d1e7dd;
-      background: #fff;
-      border-radius: 14px;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform .2s, box-shadow .2s;
-    }
-    .node:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    }
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.6);
-      display: none;
-      place-items: center;
-    }
-    .modal[open] { display: grid; }
-    .sheet {
-      background: white;
-      border-radius: 16px;
-      max-width: 700px;
-      max-height: 85vh;
-      overflow: auto;
-      padding: 20px;
-      position: relative;
-    }
-    .sheet header {
-      background: linear-gradient(120deg, var(--green) 0%, #074a36 65%);
-      color: white;
-      padding: 16px;
-      border-radius: 10px 10px 0 0;
-    }
-    button.close {
-      position: absolute;
-      right: 16px;
-      top: 10px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    details {
-      border: 1px dashed #ddd;
-      border-radius: 10px;
-      padding: 10px;
-      margin: 10px 0;
-      background: #fafafa;
-    }
-    .do { border-left: 4px solid var(--green); padding-left: 10px; }
-    .dont { border-left: 4px solid #c2410c; padding-left: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance PD Resource Dashboard</title>
+    <style>
+        /* Modern and Visually Appealing Styling */
+        :root {
+            --primary-color: #004c99; /* Deep Blue (DeSoto ISD primary) */
+            --accent-color: #ff9900; /* Gold/Orange (DeSoto ISD accent) */
+            --bg-light: #f4f7f9;
+            --text-dark: #333;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin-top: 5px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding-top: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px var(--shadow-light);
+            padding: 35px 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+            border: 2px solid transparent; /* for the hover effect */
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--accent-color);
+        }
+        .card h2 {
+            color: var(--primary-color);
+            margin-top: 10px;
+            font-size: 1.6em;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 10px;
+        }
+        .card p {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 25px;
+            min-height: 50px; /* Ensures card height consistency */
+        }
+        .icon {
+            font-size: 3em;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .card a {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .card a:hover {
+            background-color: #cc7a00;
+            transform: scale(1.02);
+        }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #999;
+            background-color: #e9ebee;
+        }
+        /* Media Query for smaller screens */
+        @media (max-width: 600px) {
+            .header {
+                padding: 20px 10px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .container {
+                margin: 20px auto;
+            }
+            .dashboard-grid {
+                gap: 20px;
+            }
+            .card {
+                padding: 25px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Quick “Who Does What” in Finance PD</h1>
-    <p>Click a category to learn who to contact, what to do, and what to avoid.</p>
-  </header>
-  <main>
-    <section class="flow">
-      <div class="node" data-lane="Budget">Budget</div>
-      <div class="node" data-lane="Payroll">Payroll</div>
-      <div class="node" data-lane="Purchasing / AP">Purchasing / AP</div>
-      <div class="node" data-lane="Procurement">Procurement</div>
-      <div class="node" data-lane="Grants / Special Revenue">Grants</div>
-      <div class="node" data-lane="Cash Handling / Audit">Cash / Audit</div>
-    </section>
-  </main>
 
-  <dialog class="modal" id="modal">
-    <div class="sheet">
-      <header>
-        <button class="close" onclick="modal.close()">×</button>
-        <h2 id="laneTitle"></h2>
-      </header>
-      <main id="laneBody"></main>
+    <div class="header">
+        <h1>Finance PD Resource Dashboard 📊</h1>
+        <p>Your central hub for DeSoto ISD Finance Professional Development</p>
     </div>
-  </dialog>
 
-  <script>
-    const scenarios = {
-      "Budget": [
-        {
-          title: "Negative balance before month-end",
-          when: "Budget line shows a negative or near-zero balance.",
-          do: "Submit a budget amendment with account string and justification.",
-          dont: "Don’t move expenses without approval."
-        },
-        {
-          title: "Wrong code on expense",
-          when: "Transaction posted to the wrong segment.",
-          do: "Submit reclass request with full details and documentation.",
-          dont: "Don’t ‘park’ charges on a random line."
-        }
-      ],
-      "Payroll": [
-        {
-          title: "Stipend missing from paycheck",
-          when: "Approved stipend didn’t appear on payroll.",
-          do: "Open a ticket with Payroll, include employee ID, pay period, and approver.",
-          dont: "Don’t request a manual check through AP."
-        }
-      ],
-      "Purchasing / AP": [
-        {
-          title: "Vendor reports unpaid invoice",
-          when: "Vendor contacts you about a past-due invoice.",
-          do: "Check PO match and receiving, then email AP with the PO, invoice, and receipt.",
-          dont: "Don’t send invoice alone — delays payment."
-        }
-      ],
-      "Procurement": [
-        {
-          title: "Purchase over $10,000",
-          when: "Planned purchase exceeds local threshold.",
-          do: "Contact Procurement for quotes/bid requirements and timeline.",
-          dont: "Don’t split purchases to avoid thresholds."
-        }
-      ],
-      "Grants / Special Revenue": [
-        {
-          title: "Unclear if cost is allowable",
-          when: "You’re unsure if an expense can be charged to a grant.",
-          do: "Email Grants team with justification and program alignment; verify in eGrants.",
-          dont: "Don’t code first and ask later."
-        }
-      ],
-      "Cash Handling / Audit": [
-        {
-          title: "Fundraiser cash deposit",
-          when: "Cash/checks collected from event.",
-          do: "Count with two people, complete receipt log, and deposit within required timeframe.",
-          dont: "Don’t store cash in classrooms or take it home."
-        }
-      ]
-    };
+    <div class="container">
+        <div class="dashboard-grid">
 
-    const modal = document.getElementById("modal");
-    const laneTitle = document.getElementById("laneTitle");
-    const laneBody = document.getElementById("laneBody");
+            <div class="card">
+                <span class="icon">🚀</span>
+                <h2>Interactive Learning Game</h2>
+                <p>Test your knowledge with the Finance PD Jeopardy Game.</p>
+                <a href="[JEOPARDY_GAME_LINK_HERE]" target="_blank">
+                    Play Jeopardy Now!
+                </a>
+            </div>
 
-    document.querySelectorAll(".node").forEach(node => {
-      node.addEventListener("click", () => {
-        const lane = node.dataset.lane;
-        laneTitle.textContent = lane;
-        const items = scenarios[lane] || [];
-        laneBody.innerHTML = items.map(s => `
-          <details>
-            <summary>${s.title}</summary>
-            <p><strong>When:</strong> ${s.when}</p>
-            <p class="do"><strong>Do:</strong> ${s.do}</p>
-            <p class="dont"><strong>Don’t:</strong> ${s.dont}</p>
-          </details>
-        `).join("");
-        modal.showModal();
-      });
-    });
-  </script>
+            <div class="card">
+                <span class="icon">🧾</span>
+                <h2>Payroll Information & FAQs</h2>
+                <p>Find answers and resources related to payroll and time-off.</p>
+                <a href="https://desotoisd-my.sharepoint.com/:p:/g/personal/kamrie_hurd_desotoisd_org/EcPUxaLlTeNJnaUh591-xOQBS760-LXyxCKuMLiTo2QP3g?e=5tXzDK" target="_blank">
+                    View Presentation
+                </a>
+            </div>
+
+            <div class="card">
+                <span class="icon">🕹️</span>
+                <h2>Sorry! Payroll Game</h2>
+                <p>Practice your payroll approval knowledge with an interactive game.</p>
+                <a href="https://elizabethbostic-dev.github.io/sorry-payroll/" target="_blank">
+                    Play the Game
+                </a>
+            </div>
+            
+            <div class="card">
+                <span class="icon">📖</span>
+                <h2>Finance Terminology Guide</h2>
+                <p>Access the interactive guide for frequently used financial terms.</p>
+                <a href="https://elizabethbostic-dev.github.io/DesotoisdFREQUENTLY-USED-FINANCE-TERMINOLOGY/" target="_blank">
+                    View Terminology
+                </a>
+            </div>
+
+            <div class="card">
+                <span class="icon">🎨</span>
+                <h2>Canva Design Reference</h2>
+                <p>View the digital design presentation for visual consistency or PD.</p>
+                <a href="https://www.canva.com/design/DAG2XK_C8w0/Aep4elFGSG1jKl-9Xvns8Q/view?utm_content=DAG2XK_C8w0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h665b59aa75" target="_blank">
+                    Open Design
+                </a>
+            </div>
+            
+            <div class="card">
+                <span class="icon">✅</span>
+                <h2>Payroll Approval Leaders PDF</h2>
+                <p>Download the official payroll approval expectations and contact information.</p>
+                <a href="uploaded:Payroll Approval Leaders 9.24.25 1.pdf" target="_blank">
+                    Download File
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 PD Resource Dashboard. Designed for DeSoto ISD.</p>
+    </div>
+
 </body>
 </html>
